@@ -1,0 +1,48 @@
+.navbar {
+	background-color: white;
+	border-color: white;
+	margin-top: 3vh;
+}
+.navbar button {
+	border-color: transparent !important;
+	background-color: white;
+}
+#intro {
+	height: 100vh;
+	width: 100%;
+}
+#intro h1 {
+	width: 50%;
+	margin: 15px 0px 0px 45px;
+	position: absolute;
+	font-family: "Georgia";
+	font-weight: bold;
+	font-size: 50pt;
+	color: lightsteelblue;
+}
+img.boat {
+	max-width: 70vh;
+	height: auto;
+	float: left;
+	margin-top: 10px;
+	margin-left: 45%;	
+}
+.scroll-down {
+	float: right;
+	text-align: center;
+	position: absolute;
+	width: 100%;
+	height: auto;
+	bottom: 12%;
+	opacity: .3;
+}
+.scroll-down img {
+	width: 50pt;
+	height: auto;
+}
+
+@media screen and (max-height: 400px) {
+	#intro h1 {
+		font-size: 40pt;
+	}
+}
