@@ -1,3 +1,6 @@
+p {
+	color: #777;
+}
 .navbar {
 	background-color: white;
 	border-color: white;
@@ -26,6 +29,30 @@ img.boat {
 	float: left;
 	margin-top: 10px;
 	margin-left: 45%;	
+}
+img.spot {
+	width: 100%;
+	height: auto;
+	left: -20pt;
+	position: relative;
+	border-radius: 10px;
+	box-shadow: 5px 5px 15px rgb(55 55 55 / 40%);
+}
+img.wind-arrow {
+	width: auto;
+	height: 100%;
+	left: 10pt;
+	position: absolute;
+	opacity: 0.7;
+}
+#conditions {
+	height: 100vh;
+	margin-top: 80pt;
+}
+#conditions h2 {
+	font-family: "Georgia";
+	font-weight: bold;
+	color: lightsteelblue;
 }
 .scroll-down {
 	float: right;

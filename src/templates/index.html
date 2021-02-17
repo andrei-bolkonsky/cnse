@@ -29,17 +29,25 @@
 	
 </div>
 
-<div class="container">
-	<div class="page-header">
-		{% if user %}
-			<h1>Hello {{ user }}! How are you today?</h1>
-		{% else %}
-			<h1>Hello Stranger!</h1>
-		{% endif %}
-		{% if agent %}
-			<p>Your browser is {{ agent  }}.</p>
-		{% else %}
-		{% endif %}
+<div id="conditions" class="container">
+	<div class="col col-md-2">
+		<p> </p>
 	</div>
+	<div class="col-sm-6 col-md-5">
+		<div class="row">
+			<div class="wind">
+			<img class="spot" src={{ url_for('static', filename='spot.png') }}>
+			<img class="wind-arrow" src={{ url_for('static', filename='wind.png') }}>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6 col-md-3">
+		<h2>Conditions aujourd'hui</h2>
+		<p>Ça à l'air top !</p>
+	</div>
+	<div class="col col-md-2">
+		<p> </p>
+	</div>
+	
 </div>
 {% endblock %}
