@@ -16,7 +16,7 @@ def get_current_conditions():
         'mist': 'brouillard'
     }
     lat, lon = (45.449213, 4.254920) # Coordonnées de la base nautique
-    api_key = str(os.environ['OW_API_KEY']) # '055d500307c5fe5a7acd11bf1a46bfc8'
+    api_key = str(os.environ['OW_API_KEY']) 
     unit = 'metric'
     base_url = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units={unit}'
     
