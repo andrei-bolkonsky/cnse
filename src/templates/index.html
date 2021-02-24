@@ -1,53 +1,31 @@
-{% extends "bootstrap/base.html" %}
+{% extends 'base.html' %}
 
-{% import 'macros.html' as macros %}
-
-{% block title %}accueil{% endblock %}
-
-{% block styles %}
-{{ super() }}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{% block title %}CNSE Accueil{% endblock %}
+{% block intro_scroll %}
+	<div class="scroll-down">
+		<img src={{ url_for('static', filename='arrow.png') }}>
+	</div>
 {% endblock %}
-
-{% block content %}
-<div id="intro" class="container">
-	<div class="col col-md-2">
-		<p> </p>
-	</div>
-	<div class="col-md-8">
-	{{ macros.render_navbar(1) }}
-	<div class="row">
-		<h1>Club Nautique<br>de<br>St-Etienne</h1>
-		<img class="boat" src={{ url_for('static', filename='boat.png') }}>
-		<div class="scroll-down">
-			<img src={{ url_for('static', filename='arrow.png') }}>
-		</div>
-	</div></div>
-	<div class="col col-md-2">
-		<p> </p>
-	</div>
-	
-</div>
-
+{% block subsection %}
 <div id="conditions" class="container">
 	<div class="col col-md-2">
-		<p> </p>
 	</div>
 	<div class="col-sm-6 col-md-5">
 		<div class="row">
 			<div class="wind">
 			<img class="spot" src={{ url_for('static', filename='spot.png') }}>
-			<img class="wind-arrow" src={{ url_for('static', filename='wind.png') }}>
+			<img class="wind-arrow" src={{ url_for('static', filename='wind.png') }} style="transform: rotate({{ weather_data['wind_deg'] }}deg)">
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-6 col-md-3">
-		<h2>Conditions aujourd'hui</h2>
-		<p>Ça à l'air top !</p>
+	<div class="col-sm-6 col-md-3 weather-conditions">
+		<h2>Conditions en ce moment</h2>
+		<p><img class="weather-icon" src="{{ weather_data['weather_icon_url'] }}"> {{ weather_data['weather_descr']|capitalize }}<br>
+		<span class="kpi">{{ weather_data['temp'] }}°C</span> température réelle<br>
+		<span class="kpi">{{ weather_data['temp_felt'] }}°C</span> température ressentie<br>
+		<span class="kpi">{{ weather_data['wind_speed'] }} kt</span> de vent</p>
 	</div>
 	<div class="col col-md-2">
-		<p> </p>
 	</div>
-	
 </div>
 {% endblock %}

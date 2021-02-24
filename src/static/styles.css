@@ -23,7 +23,7 @@ p {
 	font-size: 50pt;
 	color: lightsteelblue;
 }
-img.boat {
+#intro img {
 	max-width: 70vh;
 	height: auto;
 	float: left;
@@ -36,7 +36,7 @@ img.spot {
 	left: -20pt;
 	position: relative;
 	border-radius: 10px;
-	box-shadow: 5px 5px 15px rgb(55 55 55 / 40%);
+	box-shadow: 7px 7px 18px rgb(75 75 75 / 45%);
 }
 img.wind-arrow {
 	width: auto;
@@ -47,7 +47,7 @@ img.wind-arrow {
 }
 #conditions {
 	height: 100vh;
-	margin-top: 80pt;
+	padding-top: 80pt;
 }
 #conditions h2 {
 	font-family: "Georgia";
@@ -60,12 +60,17 @@ img.wind-arrow {
 	position: absolute;
 	width: 100%;
 	height: auto;
-	bottom: 12%;
+	bottom: 7%;
 	opacity: .3;
 }
 .scroll-down img {
 	width: 50pt;
 	height: auto;
+}
+.kpi {
+	font-weight: bolder;
+	font-size: large;
+	color: lightsteelblue;
 }
 
 @media screen and (max-height: 400px) {

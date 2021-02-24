@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block title %}500{% endblock %}
+
+{% block intro_content %}
+	<h1>Problème<br>sur le<br>serveur interne</h1>
+	<img class="500" src={{ url_for('static', filename='500.png') }}>
+{% endblock %}
