@@ -30,3 +30,13 @@
 		</div>
 	</div>
 {% endmacro %}
+
+{% macro render_article_thumb(title, image_file, text) %}
+<div class="col-sm-6 col-md-4">
+		<div class="article">
+			<img src={{ url_for('static', filename=image_file) }}>
+			<h3>{{ title }}</h3>
+			<p>{{ text  }}</p>
+		</div>
+	</div>
+{% endmacro %}

@@ -13,7 +13,8 @@ def get_current_conditions():
         'rain': 'pluie',
         'thunderstorm': 'orages',
         'snow': 'neige',
-        'mist': 'brouillard'
+        'mist': 'brouillard',
+        'overcast clouds': 'couvert'
     }
     lat, lon = (45.449213, 4.254920) # Coordonnées de la base nautique
     api_key = str(os.environ['OW_API_KEY']) 
@@ -23,9 +24,12 @@ def get_current_conditions():
     r = requests.get(base_url).json()    
     
     result = {}
-    result['weather_descr'] = eng_to_french[r['weather'][0]['description'].lower()]
+    try:
+        result['weather_descr'] = eng_to_french[r['weather'][0]['description'].lower()]
+    except:
+        result['weather_descr'] = 'Inconnu'
     result['weather_icon_url'] = f'http://openweathermap.org/img/wn/{r["weather"][0]["icon"]}@2x.png' 
-    result['wind_deg'] = int(r['wind']['deg']) + 87
+    result['wind_deg'] = int(r['wind']['deg']) + 180
     result['wind_speed'] = round(float(r['wind']['speed']) * 1.94384)
     result['temp'] = round(float(r['main']['temp']))
     result['temp_felt'] = round(float(r['main']['feels_like']))   

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}Nouvel article{% endblock %}
+
+{% block intro_content %}
+	<h2>Créer un<br>nouvel article</h2>
+	{{ wtf.quick_form(form) }}
+	{% if article_title %}<h3>{{ article_title }}</h3>{% endif %}
+	{% if article_content %}<p>{{ article_content }}</p>{% endif %}
+{% endblock %}

@@ -8,24 +8,39 @@
 {% endblock %}
 {% block subsection %}
 <div id="conditions" class="container">
-	<div class="col col-md-2">
+	<div class="col col-md-1">
 	</div>
-	<div class="col-sm-6 col-md-5">
+	<div class="col-sm-6 col-md-6">
 		<div class="row">
 			<div class="wind">
 			<img class="spot" src={{ url_for('static', filename='spot.png') }}>
-			<img class="wind-arrow" src={{ url_for('static', filename='wind.png') }} style="transform: rotate({{ weather_data['wind_deg'] }}deg)">
+			<img class="wind-arrow" src={{ url_for('static', filename='wind-arrow.gif') }} style="transform: rotate({{ weather_data['wind_deg'] }}deg)">
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-6 col-md-3 weather-conditions">
+	<div class="col-sm-6 col-md-4 weather-conditions">
 		<h2>Conditions en ce moment</h2>
 		<p><img class="weather-icon" src="{{ weather_data['weather_icon_url'] }}"> {{ weather_data['weather_descr']|capitalize }}<br>
 		<span class="kpi">{{ weather_data['temp'] }}°C</span> température réelle<br>
 		<span class="kpi">{{ weather_data['temp_felt'] }}°C</span> température ressentie<br>
 		<span class="kpi">{{ weather_data['wind_speed'] }} kt</span> de vent</p>
 	</div>
-	<div class="col col-md-2">
+	<div class="col col-md-1">
+	</div>
+</div>
+<div id="articles" class="container">
+	<div class="col-md-1">
+	</div>
+	<div class="col-md-10">
+	<div class="col-sm-12">
+		<h2>Actualité</h2>
+	</div>	
+	{{ macros.render_article_thumb("Informations réouverture", 'article_1.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...") }}
+	{{ macros.render_article_thumb("Arrivage matériel", 'article_4.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...") }}
+	{{ macros.render_article_thumb("Naviguez en toute sécurité", 'article_2.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...") }}
+	{{ macros.render_article_thumb("Un plan d'eau exceptionnel", 'article_3.jpg', "the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...") }}
+	</div>
+	<div class="col-md-1">
 	</div>
 </div>
 {% endblock %}
