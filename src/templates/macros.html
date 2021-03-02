@@ -1,35 +1,27 @@
 {% macro render_menu(page_nm, route, is_active) %}
-	<li><a href="{{ route }}" {% if is_active %}style="font-weight: bold; color: lightsteelblue;"{% endif %}>{{ page_nm }}</a></li>
+	<a class="nav-item nav-link" href="{{ route }}" {% if is_active %}style="font-weight: bold; color: lightsteelblue;"{% endif %}>{{ page_nm }}</a>
 {% endmacro %}
 
 {% macro render_navbar(int) %}
-	<div class="navbar navbar-default" role="navigation"> 
-		<div class="menu">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle"
-					data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toogle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="navbar-collapse collapse"> 
-				<ul class="nav navbar-nav">
-					{% set i = 0 %}
-					{% for page_nm in ['Accueil', 'Stages', 'Location', 'Adhésion']%}
-						{% set is_active = False %}
-						{% if loop.index == int %}
-							{% set is_active = True %}
-						{% endif %}
-						{{ render_menu(page_nm, '/', is_active) }}	
-						{% set i = i+1 %}
-					{% endfor %}
-				</ul>
+	<nav class="navbar navbar-expand-md navbar-light bg-white">
+		<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				{% set i = 0 %}
+				{% for page_nm in ['Accueil', 'Stages', 'Location', 'Adhésion']%}
+					{% set is_active = False %}
+					{% if loop.index == int %}
+						{% set is_active = True %}
+					{% endif %}
+					{{ render_menu(page_nm, '/', is_active) }}	
+					{% set i = i+1 %}
+				{% endfor %}
 			</div>
 		</div>
-	</div>
-{% endmacro %}
+	</nav>
+	{% endmacro %}
 
 {% macro render_article_thumb(title, image_file, text) %}
 <div class="col-sm-6 col-md-4">
@@ -37,6 +29,17 @@
 			<img src={{ url_for('static', filename=image_file) }}>
 			<h3>{{ title }}</h3>
 			<p>{{ text  }}</p>
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro render_article_card(title, image_file, text, date) %}
+	<div class="card article">
+		<img class="card-img-top" src={{ url_for('static', filename=image_file) }}>
+		<div class="card-body">
+			<h5 class="card-title">{{ title }}</h5>
+			<p class="card-text">{{ text }}</p>
+			<p class="card-text"><small class="text-muted">{{ date }}</small></p>
 		</div>
 	</div>
 {% endmacro %}

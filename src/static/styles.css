@@ -1,11 +1,12 @@
 p {
 	color: #777;
 }
+
 .navbar {
-	background-color: white;
-	border-color: white;
-	margin-top: 3vh;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
+
 .navbar button {
 	border-color: transparent !important;
 	background-color: white;
@@ -16,7 +17,7 @@ p {
 }
 #intro h1 {
 	width: 50%;
-	margin: 15px 0px 0px 45px;
+	margin: 15px 0px 0px 30px;
 	position: absolute;
 	font-family: "Georgia";
 	font-weight: bold;
@@ -56,6 +57,11 @@ p {
 	color: white;
 	border-color: steelblue;
 }
+
+.wind {
+	margin-bottom: 25px;
+}
+
 
 img.spot {
 	width: 100%;
@@ -104,22 +110,20 @@ h2 {
 #articles {
 	margin-top: 80pt;
 	margin-bottom: 50pt;
-	padding-left: 30px;
+	/*padding-left: 30px;*/
 	width: 100%;
 }
 
 .article {
 	border-radius: 10px 10px 10px 0px;
-	box-shadow: 6px 6px 28px rgb(75 75 75 / 20%);
-	margin-bottom: 25px;
+	box-shadow: 6px 6px 15px rgb(75 75 75 / 15%);
+	margin-bottom: 20px !important;
+	border-color: transparent;
 	margin-top: 25px;
-	padding-bottom: 25px;
-	margin-right: 25px;
 }
 
-.article h3, .article p {
-	padding-left: 25px;
-	padding-right: 25px;
+.article:hover {
+	border: 1px solid lightsteelblue;
 }
 
 .article img {
@@ -130,8 +134,18 @@ h2 {
 	border-radius: 10px 10px 0px 0px;
 }
 
-@media screen and (max-height: 400px) {
+/*@media screen and (max-height: 400px) {
+
+}*/
+@media (max-width: 576px) {  
 	#intro h1 {
 		font-size: 40pt;
+	}
+	
+	.weather-conditions {
+		margin-left: 15px;
+	}
+	#articles {
+		padding-left: 30px;
 	}
 }

@@ -15,7 +15,6 @@
 {% block styles %}
 {{ super() }}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-{{ fontawesome_html() }}
 {% endblock %}
 
 {% block scripts %}
@@ -25,20 +24,22 @@
 
 {% block content %}
 <div id="intro" class="container">
-	<div class="col col-md-1">
-	</div>
-	<div class="col-md-10">
-		{{ macros.render_navbar(1) }}
-		<div class="row">
-		{% block intro_content %}
-			<h1>Club Nautique<br>de<br>St-Etienne</h1>
-			<img class="boat" src={{ url_for('static', filename='boat.png') }}>
-		{% endblock %}
-		{% block intro_scroll %}
-		{% endblock %}
+	<div class="row">
+		<div class="col-lg-1">
 		</div>
-	</div>
-	<div class="col col-md-1">
+		<div class="col-lg-10">
+			{{ macros.render_navbar(1) }}
+			<div class="row">
+				{% block intro_content %}
+					<h1>Club Nautique<br>de<br>St-Etienne</h1>
+					<img class="boat" src={{ url_for('static', filename='boat.png') }}>
+				{% endblock %}
+				{% block intro_scroll %}
+				{% endblock %}
+			</div>
+		</div>
+		<div class="col-lg-1">
+		</div>
 	</div>
 </div>
 {% block subsection %}{% endblock %}

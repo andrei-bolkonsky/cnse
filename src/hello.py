@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
-from flask_bootstrap import Bootstrap
-from flask_fontawesome import FontAwesome
+# from flask_bootstrap import Bootstrap
+# from flask_fontawesome import FontAwesome
 from weather_utils import get_current_conditions
 from flask_moment import Moment 
 from flask_wtf import FlaskForm
@@ -10,8 +10,8 @@ from wtforms.validators import DataRequired
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hardtoguesskey'
 
-bootstrap = Bootstrap(app)
-fa = FontAwesome(app)
+# bootstrap = Bootstrap(app)
+# fa = FontAwesome(app)
 moment = Moment(app)
 
 class ArticleForm(FlaskForm):
