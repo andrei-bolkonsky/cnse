@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% set color_scale = ['#3399ff', '#3d96f2', '#4794e6', '#5291d9', '#5c8fcc', '#668cbf', '#708ab2', '#7a87a6', '#858599', '#8f828c', '#998080', '#a37d73', '#ad7a66', '#b87859', '#c2754c', '#cc7340', '#d67033', '#e06e26', '#eb6b1a', '#f5690d', '#ff6600'] -%}
 
 {% block title %}CNSE Accueil{% endblock %}
 {% block intro_scroll %}
@@ -9,24 +10,95 @@
 {% block subsection %}
 <div id="conditions" class="container">
 	<div class="row">
-	<div class="col-lg-1">
-	</div>
-	<div class="col-md-6 col-lg-6 wind">
-		<div>
-			<img class="spot" src={{ url_for('static', filename='spot.png') }}>
-			<img class="wind-arrow" src={{ url_for('static', filename='wind-arrow.gif') }} style="transform: rotate({{ weather_data['wind_deg'] }}deg)">
+		<div class="col-lg-1">
+		</div>
+		<div class="col-md-12 col-lg-10">
+			<div class="row">
+				<div class="col-sm-12">
+					<h2>Conditions</h2>
+				</div>
+				<div class="col-md-6 col-lg-7 wind">
+					<div>
+						<img class="spot" src={{ url_for('static', filename='spot.png') }}>
+						<img class="wind-arrow" src={{ url_for('static', filename='wind-arrow.gif') }} style="transform: rotate({{ weather_data['wind_deg'] }}deg)">
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-5 weather-conditions">
+					<p><img class="weather-icon" src="{{ weather_data['weather_icon_url'] }}"> {{ weather_data['weather_descr']|capitalize }}<br>
+					<span class="kpi">{{ weather_data['temp'] }}°C</span> température réelle<br>
+					<span class="kpi">{{ weather_data['temp_felt'] }}°C</span> température ressentie<br>
+					<span class="kpi">{{ weather_data['wind_speed'] }} kt</span> de vent</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-1">
 		</div>
 	</div>
-	<div class="col-md-6 col-lg-4 weather-conditions">
-		<h2>Conditions en ce moment</h2>
-		<p><img class="weather-icon" src="{{ weather_data['weather_icon_url'] }}"> {{ weather_data['weather_descr']|capitalize }}<br>
-		<span class="kpi">{{ weather_data['temp'] }}°C</span> température réelle<br>
-		<span class="kpi">{{ weather_data['temp_felt'] }}°C</span> température ressentie<br>
-		<span class="kpi">{{ weather_data['wind_speed'] }} kt</span> de vent</p>
-	</div>
-	<div class="col-lg-1">
-	</div>
-	</div>
+	<div class="row">
+		<div class="col-lg-1">
+		</div>
+		<div class="col-lg-10">
+			<h4>Prévisions pour la suite</h4>
+			<table class="table table-responsive">
+				<thead>
+					<tr>
+						<th scope="col" class="float-right day">&nbsp;</th>
+						{% for date, hours in data.items() -%}
+						<th scope="col" class="day" colspan="{{ hours|length }}">{% if hours|length > 3 %}{{ date }}{% else %}{% endif %}</th>
+					{% endfor %}
+					</tr>
+					<tr>
+						<th scope="col" class="float-right label">Heure</th>
+						{% for date, hours in data.items() -%}
+							{% for hour, weather in hours.items() -%}
+								<th scope="col" class="hour">{{ hour }}</th>
+							{% endfor %}
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row" class="float-right">&nbsp;</th>
+						{% for date, hours in data.items() -%}
+							{% for hour, weather in hours.items() -%}
+								<td><img class="weather-icon" 
+									src={{ weather['weather_icon_url'] }} 
+									style="width: 28px; height: auto; margin: -5px"></td>
+							{% endfor %}
+						{% endfor %}
+					</tr>
+					<tr>
+						<th scope="row" class="float-right label">°C</th>
+						{% for date, hours in data.items() -%}
+							{% for hour, weather in hours.items() -%}
+								<td style="border-top: solid 3px {{ color_scale[(20*(weather['temp']+5)/30)|int] }} !important;">{{ weather['temp'] }}°</td>
+							{% endfor %}
+						{% endfor %}
+					</tr>
+					<tr>
+						<th scope="row" class="float-right label">Vent</th>
+						{% for date, hours in data.items() -%}
+							{% for hour, weather in hours.items() -%}
+								<td><img class="wind-dir" i
+									 src={{ url_for('static', filename='direction-arrow.png') }} 
+									 style="transform: rotate({{ weather['wind_deg'] }}deg); width: 12px; height: auto;"></td>
+							{% endfor %}
+						{% endfor %}
+					</tr>
+					<tr>
+						<th scope="row" class="float-right label">Kt</th>
+						{% for date, hours in data.items() -%}
+							{% for hour, weather in hours.items() -%}
+								<td>{{ weather['wind_speed'] }}</td>
+							{% endfor %}
+						{% endfor %}
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<div class="col-lg-1">
+			</div>
+		</div>
 </div>
 <div id="articles" class="container">
 	<div class="row">
@@ -39,12 +111,12 @@
 				</div>	
 			</div>
 			<div class="card-columns">
-				{{ macros.render_article_card("Informations réouverture", 'article_1.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.", 'Mardi 5 octobre') }}
-				{{ macros.render_article_card("Arrivage matériel", 'article_4.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's sstandard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambledtandard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...", 'Mardi 5 juillet') }}
-				{{ macros.render_article_card("Naviguez en toute sécurité", 'article_2.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scra mdummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...", 'Mardi 5 juillet') }}
-				{{ macros.render_article_card("Un plan d'eau exceptionnel", 'article_3.jpg', "the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and...", 'Lundi 14 septembre') }}
-				{{ macros.render_article_card("Un plan d'eau exceptionnel", 'article_4.jpg', "the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...", 'Lundi 14 septembre') }}
-				{{ macros.render_article_card("Un plan d'eau exceptionnel", 'article_1.jpg', "the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen booscrambled it to make a type specimen boo...", 'Lundi 14 septembre') }}
+				{{ macros.render_article_card("Informations réouverture", 'article_1.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.", 'Mardi 5 octobre', 'article_card_id_1') }}
+				{{ macros.render_article_card("Arrivage matériel", 'article_4.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's sstandard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambledtandard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...", 'Mardi 5 juillet', 'article_card_id_2') }}
+				{{ macros.render_article_card("Naviguez en toute sécurité", 'article_2.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scra mdummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...", 'Mardi 5 juillet', 'article_card_id_3') }}
+				{{ macros.render_article_card("Un plan d'eau exceptionnel", 'article_3.jpg', "the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and...", 'Lundi 14 septembre', 'article_card_id_4') }}
+				{{ macros.render_article_card("Un plan d'eau exceptionnel", 'article_4.jpg', "the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...", 'Lundi 14 septembre', 'article_card_id_5') }}
+				{{ macros.render_article_card("Un plan d'eau exceptionnel", 'article_1.jpg', "the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen booscrambled it to make a type specimen boo...", 'Lundi 14 septembre', 'article_card_id_6') }}
 			</div>
 		</div>
 		<div class="col-lg-1">

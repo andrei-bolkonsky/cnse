@@ -33,13 +33,30 @@
 	</div>
 {% endmacro %}
 
-{% macro render_article_card(title, image_file, text, date) %}
+{% macro render_article_card(title, image_file, text, date, id) %}
+	<a type="button" data-toggle="modal" data-target="#{{ id }}">
 	<div class="card article">
 		<img class="card-img-top" src={{ url_for('static', filename=image_file) }}>
 		<div class="card-body">
 			<h5 class="card-title">{{ title }}</h5>
 			<p class="card-text">{{ text }}</p>
 			<p class="card-text"><small class="text-muted">{{ date }}</small></p>
+		</div>
+	</div>
+	</a>
+	<!-- Modal -->
+	<div class="modal fade" id="{{ id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<img class="card-img-top" src="{{ url_for('static', filename=image_file) }}">
+				<div class="modal-body">
+					<h5 class="card-title">{{ title }}</h5>
+					<p class="card-text">{{ text }}</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endmacro %}

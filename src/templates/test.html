@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Test{% endblock %}
+
+{% block subsection %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-8">
+				<table class="table table-responsive">
+					<thead>
+						<tr>
+							<th scope="col" class="float-right">Jour</th>
+							{% for date, hours in data.items() -%}
+							<th scope="col" colspan="{{ hours|length }}">{% if hours|length > 3 %}{{ date }}{% else %}{% endif %}</th>
+						{% endfor %}
+						</tr>
+						<tr>
+							<th scope="col" class="float-right">Heure</th>
+							{% for date, hours in data.items() -%}
+								{% for hour, weather in hours.items() -%}
+									<th scope="col">{{ hour }}</th>
+								{% endfor %}
+							{% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row" class="float-right"></th>
+							{% for date, hours in data.items() -%}
+								{% for hour, weather in hours.items() -%}
+									<td><img class="weather-icon" 
+										src={{ weather['weather_icon_url'] }} 
+										style="width: 28px; height: auto; margin: -10px"></td>
+								{% endfor %}
+							{% endfor %}
+						</tr>
+						<tr>
+							<th scope="row" class="float-right">°C</th>
+							{% for date, hours in data.items() -%}
+								{% for hour, weather in hours.items() -%}
+									<td>{{ weather['temp'] }}°</td>
+								{% endfor %}
+							{% endfor %}
+						</tr>
+						<tr>
+							<th scope="row" class="float-right">Wind</th>
+							{% for date, hours in data.items() -%}
+								{% for hour, weather in hours.items() -%}
+									<td><img class="wind-dir" i
+										src={{ url_for('static', filename='direction-arrow.png') }} 
+										style="transform: rotate({{ weather['wind_deg'] }}deg); width: 12px; height: auto;"></td>
+								{% endfor %}
+							{% endfor %}
+						</tr>
+						<tr>
+							<th scope="row" class="float-right">Kt</th>
+							{% for date, hours in data.items() -%}
+								{% for hour, weather in hours.items() -%}
+									<td>{{ weather['wind_speed'] }}</td>
+								{% endfor %}
+							{% endfor %}
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-2">
+			</div>
+		</div>
+	</div>
+{% endblock %}

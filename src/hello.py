@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request
-# from flask_bootstrap import Bootstrap
-# from flask_fontawesome import FontAwesome
-from weather_utils import get_current_conditions
+from weather_utils import get_current_conditions, get_hourly_conditions
 from flask_moment import Moment 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FileField, TextAreaField
@@ -10,8 +8,6 @@ from wtforms.validators import DataRequired
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hardtoguesskey'
 
-# bootstrap = Bootstrap(app)
-# fa = FontAwesome(app)
 moment = Moment(app)
 
 class ArticleForm(FlaskForm):
@@ -23,7 +19,13 @@ class ArticleForm(FlaskForm):
 @app.route('/')
 def index():
     weather_data = get_current_conditions()
-    return render_template('index.html', weather_data = weather_data)
+    data = get_hourly_conditions()
+    return render_template('index.html', weather_data = weather_data, data = data)
+
+@app.route('/test')
+def test():
+    data = get_hourly_conditions()
+    return render_template('test.html', data = data)
 
 @app.route('/admin', methods=['GET', 'POST'])
 def create_article():

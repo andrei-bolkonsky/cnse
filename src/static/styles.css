@@ -7,6 +7,10 @@ p {
 	margin-bottom: 15px;
 }
 
+.nav-item {
+	padding-right: 25px !important;
+}
+
 .navbar button {
 	border-color: transparent !important;
 	background-color: white;
@@ -62,11 +66,9 @@ p {
 	margin-bottom: 25px;
 }
 
-
 img.spot {
 	width: 100%;
 	height: auto;
-	left: -20pt;
 	position: relative;
 	border-radius: 10px;
 	box-shadow: 7px 7px 18px rgb(75 75 75 / 45%);
@@ -74,19 +76,19 @@ img.spot {
 img.wind-arrow {
 	width: auto;
 	height: 100%;
-	left: 10pt;
 	position: absolute;
 	opacity: 0.7;
+	left: 15px;
 }
 #conditions {
-	/*min-height: 100vh;*/
 	padding-top: 80pt;
 }
-/*#conditions*/ 
+
 h2 {
 	font-family: "Georgia";
 	font-weight: bold;
 	color: lightsteelblue;
+	margin-bottom: 25px;
 }
 .scroll-down {
 	float: right;
@@ -119,7 +121,6 @@ h2 {
 	box-shadow: 6px 6px 15px rgb(75 75 75 / 15%);
 	margin-bottom: 20px !important;
 	border-color: transparent;
-	margin-top: 25px;
 }
 
 .article:hover {
@@ -134,9 +135,60 @@ h2 {
 	border-radius: 10px 10px 0px 0px;
 }
 
-/*@media screen and (max-height: 400px) {
+.modal-content {
+	border-radius: 11px 11px 0 0;
+}
 
-}*/
+.modal-content img {
+	height: 50vh;
+	object-fit: cover;
+	border-radius: 10px 10px 0 0;
+}
+
+#conditions table th {
+	border: none;
+	font-size: x-small;
+	vertical-align: middle;
+	color: gray;
+}
+
+#conditions th.float-right  {
+	border-right: solid 1px lightsteelblue;
+	font-size: small;
+}
+
+#conditions table td {
+	border: none;
+	font-size: small;
+	vertical-align: middle;
+}
+
+#conditions .table th, #conditions .table td {
+	padding: .45rem .75rem .45rem .75rem;
+}
+
+#conditions thead th.hour {
+	border-bottom: solid 1px lightsteelblue;
+}
+
+#conditions thead th.day {
+	padding-bottom: 0rem;
+	padding-top: .75rem;
+	vertical-align: bottom;
+	border: none !important;
+}
+
+#conditions th.label {
+	border-radius: 10px 0 0 10px;
+	background-color: whitesmoke;
+	margin-bottom: 2px;
+	color: black;
+}
+
+#conditions h4 {
+	color: lightsteelblue;
+}
+
 @media (max-width: 576px) {  
 	#intro h1 {
 		font-size: 40pt;
@@ -147,5 +199,8 @@ h2 {
 	}
 	#articles {
 		padding-left: 30px;
+	}
+	img.spot, img.wind-arrow {
+		left: -20pt;
 	}
 }
