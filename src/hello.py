@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, redirect, url_for
+from flask import Flask, render_template, session, redirect, url_for, flash
 from weather_utils import get_current_conditions, get_hourly_conditions
 from flask_moment import Moment
 from flask_wtf import FlaskForm
@@ -58,6 +58,9 @@ def create_article():
 def connection():
     form = ConnectionForm()
     if form.validate_on_submit():
+        old_username = session.get('username')
+        if old_username is not None and old_username != form.username.data:
+            flash(f'Looks like you are not {old_username} anymore!')
         session['username'] = form.username.data
         session['password'] = form.password.data
         form.username.data = ''
