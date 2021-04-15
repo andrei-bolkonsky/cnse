@@ -52,7 +52,6 @@ def get_hourly_conditions():
             forecast[day] = {}
 
         time = int(hour['dt_txt'].split(' ')[1].split(':')[0])
-        print(time)
         forecast[day][time] = {}
         forecast[day][time]['weather'] = hour['weather'][0]['description']
         forecast[day][time]['weather_icon_url'] = f'http://openweathermap.org/img/wn/{hour["weather"][0]["icon"]}@2x.png' 

@@ -13,6 +13,7 @@ moment = Moment(app)
 class ArticleForm(FlaskForm):
     title = StringField("", validators=[DataRequired()], render_kw={'placeholder':"Titre de l'article"})
     # image = FileField()
+    quick_description = TextAreaField("", validators = [DataRequired()], render_kw={'placeholder':"Description"})
     content = TextAreaField("", validators=[DataRequired()], render_kw={'placeholder':"Contenu"})
     submit = SubmitField('Valider')
 
@@ -31,15 +32,19 @@ def test():
 def create_article():
     article_title = None
     article_content = None
+    article_descr = None
     form = ArticleForm()
     if form.validate_on_submit():
         article_title = form.title.data
+        article_descr = form.quick_description.data
         article_content = form.content.data
         form.title.data = ''
         form.content.data = ''
+        form.quick_description.data = ''
     return render_template('article_creation.html', 
                            form = form, 
                            article_title = article_title,
+                           article_descr = article_descr,
                            article_content = article_content)
 
 @app.errorhandler(404)

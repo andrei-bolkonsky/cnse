@@ -37,7 +37,7 @@ p {
 }
 
 #intro h2, #intro form, #intro h3, #intro p {
-	margin-left: 45px;
+	margin-left: 35px;
 	margin-bottom: 25px;
 	width: 75%;
 }
@@ -51,15 +51,15 @@ p {
 }
 
 .btn {
-	background-color: lightsteelblue;
-	color: white;
+	background-color: white;
+	color: lightsteelblue;
 	border-color: lightsteelblue;
 }
 
 .btn:hover {
-	background-color: steelblue;
+	background-color: lightsteelblue;
 	color: white;
-	border-color: steelblue;
+	border-color: lightsteelblue;
 }
 
 .wind {
