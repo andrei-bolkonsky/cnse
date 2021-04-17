@@ -91,17 +91,26 @@ def connection():
     form = ConnectionForm()
     if form.validate_on_submit():
         old_username = session.get('username')
-        if old_username is not None and old_username != form.username.data:
-            flash(f'Looks like you are not {old_username} anymore!')
         session['username'] = form.username.data
         session['password'] = form.password.data
         form.username.data = ''
         form.password.data = ''
+        if old_username is not None and old_username != session['username']:
+            flash(f"On dirait que vous n'êtes plus {old_username} !")
+        known_user = User.query.filter_by(username=session['username']).first()
+        if known_user is None:
+            new_user = User(username=session['username'])
+            db.session.add(new_user)
+            db.session.commit()
+            session['known'] = False
+        else:
+            session['known'] = True
         return redirect(url_for('connection'))
     return render_template('login.html',
                            form=form,
                            username=session.get('username'),
-                           password=session.get('password'))
+                           password=session.get('password'),
+                           known=session.get('known', False))
 
 
 @app.errorhandler(404)
