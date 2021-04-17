@@ -22,6 +22,8 @@
 		</div>
 	</form>
 
-	{% if username %}<h3>Bonjour {{ username }} :)</h3>{% endif %}
+	{% if username %}<h3>Bonjour {{ username }} :)</h3>
     <p>{% if known %}Heureux de vous revoir !{% else %}C'est votre première visite...{% endif %}</p>
+    {% endif %}
+
 {% endblock %}
