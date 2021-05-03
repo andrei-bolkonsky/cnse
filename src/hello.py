@@ -7,6 +7,8 @@ from wtforms import StringField, SubmitField, FileField, TextAreaField, Password
 from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_mail import Mail
+from flask_mail import Message
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
@@ -14,10 +16,19 @@ app.config['SECRET_KEY'] = 'hardtoguesskey'
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[CNSE]'
+app.config['FLASKY_MAIL_SENDER'] = 'Administrateur CNSE <victor.cumer@gmai.com>'
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['CNSE_ADMIN'] = os.environ.get('CNSE_ADMIN')
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 moment = Moment(app)
+mail = Mail(app)
 
 
 # FORMS
@@ -46,6 +57,17 @@ class Role(db.Model):
 
     def __repr__(self):
         return '<Role %r>' % self.name
+
+
+# MAIL
+######
+def send_email(to, subject, template, **kwargs):
+    msg = Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject,
+                  sender=app.config['FLASKY_MAIL_SENDER'],
+                  recipients=[to])
+    msg.body = render_template(template + '.txt', **kwargs)
+    msg.html = render_template(template + '.html', **kwargs)
+    mail.send(msg)
 
 
 class User(db.Model):
@@ -111,6 +133,8 @@ def connection():
             db.session.add(new_user)
             db.session.commit()
             session['known'] = False
+            if app.config['CNSE_ADMIN']:
+                send_email(app.config['CNSE_ADMIN'], 'New User', 'mail/new_user', user=known_user)
         else:
             session['known'] = True
         return redirect(url_for('connection'))
