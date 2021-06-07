@@ -1,7 +1,7 @@
 from .weather_utils import get_current_conditions, get_hourly_conditions
 from flask import render_template, session, redirect, url_for, flash
 from .forms import ArticleForm, ConnectionForm
-from ..models import User, Role
+from ..models import User, Role, Post
 from . import main
 from .. import db
 
@@ -10,7 +10,8 @@ from .. import db
 def index():
     weather_data = get_current_conditions()
     data = get_hourly_conditions()
-    return render_template('index.html', weather_data=weather_data, data=data)
+    articles = Post.query.all()
+    return render_template('index.html', weather_data=weather_data, data=data, articles=articles)
 
 
 @main.route('/test')

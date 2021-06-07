@@ -121,6 +121,7 @@ h2 {
 
 .article:hover {
 	border: 1px solid lightsteelblue;
+	cursor: pointer;
 }
 
 .article img {

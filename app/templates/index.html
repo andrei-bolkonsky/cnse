@@ -111,12 +111,9 @@
 				</div>	
 			</div>
 			<div class="card-columns">
-				{{ macros.render_article_card("Informations réouverture", 'article_1.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.", 'Mardi 5 octobre', 'article_card_id_1') }}
-				{{ macros.render_article_card("Arrivage matériel", 'article_4.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's sstandard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambledtandard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...", 'Mardi 5 juillet', 'article_card_id_2') }}
-				{{ macros.render_article_card("Naviguez en toute sécurité", 'article_2.jpg', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scra mdummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...", 'Mardi 5 juillet', 'article_card_id_3') }}
-				{{ macros.render_article_card("Un plan d'eau exceptionnel", 'article_3.jpg', "the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and...", 'Lundi 14 septembre', 'article_card_id_4') }}
-				{{ macros.render_article_card("Un plan d'eau exceptionnel", 'article_4.jpg', "the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo...", 'Lundi 14 septembre', 'article_card_id_5') }}
-				{{ macros.render_article_card("Un plan d'eau exceptionnel", 'article_1.jpg', "the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen booscrambled it to make a type specimen boo...", 'Lundi 14 septembre', 'article_card_id_6') }}
+				{%- for article in articles %}
+                {{ macros.render_article_card(article.title, article.summary, article.content, 'TODO 5 octobre', article.id) }}
+                {%- endfor %}
 			</div>
 		</div>
 		<div class="col-lg-1">
