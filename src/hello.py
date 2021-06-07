@@ -56,7 +56,17 @@ class Role(db.Model):
     users = db.relationship('User', backref='role')
 
     def __repr__(self):
-        return '<Role %r>' % self.name
+        return f'<Role {self.name}>'
+
+
+class User(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+    def __repr__(self):
+        return f'<User {self.username}>'
 
 
 # MAIL
@@ -68,16 +78,6 @@ def send_email(to, subject, template, **kwargs):
     msg.body = render_template(template + '.txt', **kwargs)
     msg.html = render_template(template + '.html', **kwargs)
     mail.send(msg)
-
-
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True, index=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-
-    def __repr__(self):
-        return '<User %r>' % self.username
 
 
 @app.shell_context_processor
@@ -133,8 +133,8 @@ def connection():
             db.session.add(new_user)
             db.session.commit()
             session['known'] = False
-            if app.config['CNSE_ADMIN']:
-                send_email(app.config['CNSE_ADMIN'], 'New User', 'mail/new_user', user=known_user)
+            # if app.config['CNSE_ADMIN']:
+            #     send_email(app.config['CNSE_ADMIN'], 'New User', 'mail/new_user', user=known_user)
         else:
             session['known'] = True
         return redirect(url_for('connection'))
