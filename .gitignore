@@ -68,6 +68,7 @@ instance/
 .webassets-cache
 .idea/
 data.sqlite
+*.sqlite
 
 # Scrapy stuff:
 .scrapy

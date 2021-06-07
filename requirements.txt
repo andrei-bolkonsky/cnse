@@ -1,1 +1,6 @@
 Flask==1.1.2
+
+WTForms~=2.3.3
+requests~=2.25.1
+alembic~=1.5.8
+SQLAlchemy~=1.4.8
