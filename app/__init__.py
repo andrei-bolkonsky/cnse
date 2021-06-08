@@ -1,10 +1,13 @@
-from flask import Flask, render_template, session, redirect, url_for, flash
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_moment import Moment
 from config import config
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 moment = Moment()
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
 
 
 def create_app(config_name):
@@ -14,8 +17,12 @@ def create_app(config_name):
 
     moment.init_app(app)
     db.init_app(app)
+    login_manager.init_app(app)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
     return app

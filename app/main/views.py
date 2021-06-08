@@ -1,9 +1,8 @@
 from .weather_utils import get_current_conditions, get_hourly_conditions
 from flask import render_template, session, redirect, url_for, flash
-from .forms import ArticleForm, ConnectionForm
-from ..models import User, Role, Post
+from .forms import ArticleForm
+from ..models import Post
 from . import main
-from .. import db
 
 
 @main.route('/')
@@ -36,32 +35,3 @@ def create_article():
                            article_title=session.get('article_title'),
                            article_descr=session.get('article_descr'),
                            article_content=session.get('article_content'))
-
-
-@main.route('/login', methods=['GET', 'POST'])
-def connection():
-    form = ConnectionForm()
-    if form.validate_on_submit():
-        old_username = session.get('username')
-        session['username'] = form.username.data
-        session['password'] = form.password.data
-        form.username.data = ''
-        form.password.data = ''
-        if old_username is not None and old_username != session['username']:
-            flash(f"On dirait que vous n'êtes plus {old_username} !")
-        known_user = User.query.filter_by(username=session['username']).first()
-        if known_user is None:
-            new_user = User(username=session['username'])
-            db.session.add(new_user)
-            db.session.commit()
-            session['known'] = False
-            # if app.config['CNSE_ADMIN']:
-            #     send_email(app.config['CNSE_ADMIN'], 'New User', 'mail/new_user', user=known_user)
-        else:
-            session['known'] = True
-        return redirect(url_for('main.connection'))
-    return render_template('login.html',
-                           form=form,
-                           username=session.get('username'),
-                           password=session.get('password'),
-                           known=session.get('known', False))
