@@ -16,9 +16,9 @@
 			<!--{{ form.password.label }}-->
             {{ form.password(class="form-control") }}
 		</div>
-		<div class="form-group">
-			<button type="submit" class="btn">Valider</button>
-		</div>
+        {{ form.remember_me(class="form-control") }}
+        {{ form.remember_me.label }}
+        <button type="submit" class="btn">Valider</button>
 	</form>
 
 	{% if username %}<h3>Bonjour {{ username }} :)</h3>

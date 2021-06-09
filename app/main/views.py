@@ -1,5 +1,6 @@
 from .weather_utils import get_current_conditions, get_hourly_conditions
-from flask import render_template, session, redirect, url_for, flash
+from flask import render_template, session, redirect, url_for
+from flask_login import login_required
 from .forms import ArticleForm
 from ..models import Post
 from . import main
@@ -14,6 +15,7 @@ def index():
 
 
 @main.route('/test')
+@login_required
 def test():
     data = get_hourly_conditions()
     return render_template('test.html', data=data)

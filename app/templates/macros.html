@@ -4,11 +4,12 @@
 
 {% macro render_navbar(int) %}
 	<nav class="navbar navbar-expand-md navbar-light bg-white">
-		<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
+			<div class="navbar-nav mr-auto">
 				{% set i = 0 %}
 				{% for page_nm in ['Accueil', 'Stages', 'Location', 'Adhésion']%}
 					{% set is_active = False %}
@@ -19,6 +20,12 @@
 					{% set i = i+1 %}
 				{% endfor %}
 			</div>
+            <div class="navbar-nav ml-auto">
+                {%- if current_user.is_authenticated %}
+                <a class="btn" href="{{ url_for('auth.logout') }}">Log Out</a> {% else %}
+                <a class="btn" href="{{ url_for('auth.login') }}">Log In</a>
+                {%- endif %}
+            </div>
 		</div>
 	</nav>
 	{% endmacro %}
