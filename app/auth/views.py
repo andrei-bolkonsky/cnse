@@ -12,12 +12,13 @@ def login():
         session['username'] = form.username.data
         form.username.data = ''
         user = User.query.filter_by(username=session['username']).first()
-        if user is not None and user.verify_password(form.password.data):
-            login_user(user, form.remember_me.data)
-            next = request.args.get('next')
-            if next is None or not next.startswith('/'):
-                next = url_for('main.index')
-            return redirect(next)
+        if user is not None:
+            if user.verify_password(form.password.data):
+                login_user(user, form.remember_me.data)
+                next = request.args.get('next')
+                if next is None or not next.startswith('/'):
+                    next = url_for('main.index')
+                return redirect(next)
         flash("Nom d'utilisateur ou mot de passe invalide.")
     return render_template('auth/login.html',
                            form=form,
